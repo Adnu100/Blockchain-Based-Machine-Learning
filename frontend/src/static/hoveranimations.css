@@ -1,0 +1,8 @@
+.myanimation {
+  background-color: rgb(185, 207, 224);
+  transition: all 1.5s ease-in-out;
+}
+
+.myanimation:hover {
+  background-color: rgb(128, 170, 170);
+}
