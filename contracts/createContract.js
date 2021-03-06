@@ -105,7 +105,7 @@ async function main() {
     contract.deploy({
         data: '0x' + bytecode.object
     }).send({
-        from: accounts[0],
+        from: accounts[7],
         gas: 1000000,
         gasPrice: 100000
     }).then(console.log).catch(console.log);

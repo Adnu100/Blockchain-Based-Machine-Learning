@@ -4,7 +4,6 @@ import { Web3 } from "web3";
 class GradientForm extends Component {
   constructor() {
     super();
-    this.web3connection = Web3("http://localhost:7545/");
   }
 
   sendGradient(event) {
