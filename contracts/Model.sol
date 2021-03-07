@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity ^0.7.4;
 
 contract Ownable {
     address owner;
@@ -23,6 +23,16 @@ contract Ownable {
 
 contract Model is Ownable {
     
+    struct ModelState {
+        int slope;
+        int intercept;
+    }
+
+    struct Gradients {
+        int m;
+        int b;
+    }
+
     struct DataHolderSet {
         address[] dataHolders;
         mapping(address => bool) existance;
@@ -30,12 +40,13 @@ contract Model is Ownable {
     
     string public name;
     DataHolderSet registered;
-    
-    mapping(address => uint) gradients;
+    ModelState current;
     
     constructor(string memory _name) public {
         super;
         name = _name;
+        current.slope = 0;
+        current.intercept = 0;
     }
     
     modifier shouldBeRegistered() {
@@ -48,11 +59,12 @@ contract Model is Ownable {
         registered.existance[_dataHolder] = true;
     }
     
-    function addGradient(uint _gradient) public shouldBeRegistered {
-        gradients[msg.sender] = _gradient;
+    function addGradient(int m, int b) public shouldBeRegistered {
+        current.slope += m;
+        current.intercept += b;
     }
     
-    function getGradient(uint index) public returns(uint) {
-        return gradients[registered.dataHolders[index]];
+    function getCurrentModel() public view returns(int, int) {
+        return (current.slope, current.intercept);
     }
 }
