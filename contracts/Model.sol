@@ -1,14 +1,14 @@
-pragma solidity ^0.7.4;
+pragma solidity ^0.4.21;
 
 contract Ownable {
     address owner;
     
-    constructor() public {
+    function Ownable() public {
         owner = msg.sender;
     }
     
     modifier shouldBeOwned() {
-        require(owner == msg.sender, "must be owner");
+        require(owner == msg.sender);
         _;
     }
     
@@ -22,7 +22,6 @@ contract Ownable {
 }
 
 contract Model is Ownable {
-    
     struct ModelState {
         int slope;
         int intercept;
@@ -42,15 +41,16 @@ contract Model is Ownable {
     DataHolderSet registered;
     ModelState current;
     
-    constructor(string memory _name) public {
+    function Model() public {
         super;
-        name = _name;
+        /*name = _name;*/
+        name = "test";
         current.slope = 0;
         current.intercept = 0;
     }
     
     modifier shouldBeRegistered() {
-        require(registered.existance[msg.sender], "is not registered");
+        require(registered.existance[msg.sender]);
         _;
     }
     
