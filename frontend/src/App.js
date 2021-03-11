@@ -1,13 +1,36 @@
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import "./App.css";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import GradientForm from "./components/gradientform";
+import header from "./components/Header";
+import footer from "./components/Footer";
+import StartProcess from "./components/StartProcess";
+import DownloadModel from "./components/DownloadModel";
+import HomePage from "./components/HomePage";
 import "./static/gradientform.css";
 
 function App() {
   return (
-    <>
-      <Header></Header>
+    <div>
+    <Router>
+          <div className="App">
+            <Switch>
+              <Route exact path="/DownloadModel" component={DownloadModel} />
+              <Route exact path="/StartProcess" component={StartProcess} />
+              <Route exact path="/HomePage" component={HomePage} />
+              <Redirect from="/" to="/HomePage" />
+            </Switch>
+          </div>
+        </Router>
+    </div>
+  );
+}
+
+export default App;
+
+
+/*
+  <FileInput></FileInput> 
+  <Header></Header>
       <div
         className="container rounded border border-primary shadow-lg myform"
         style={{ padding: "20px" }}
@@ -15,8 +38,5 @@ function App() {
         <GradientForm></GradientForm>
       </div>
       <Footer></Footer>
-    </>
-  );
-}
 
-export default App;
+*/
