@@ -11,9 +11,27 @@ class Features extends Component {
           <h2>
             <b>Features</b>
           </h2>
+         </div>
+         <div className="jumbotron shadow-lg new-jumbotron">
+          <h2>
+            <b>No data exchange</b>
+          </h2>
           <hr />
-          <h3>Train a machine learning without exchaging data</h3>
-          <h3>And lot more features</h3>
+          <h3>Trains a machine learning without exchaging data</h3>
+         </div>
+         <div className="jumbotron shadow-lg new-jumbotron">
+          <h2>
+            <b>Secure</b>
+          </h2>
+          <hr />
+          <h3>Achieves more security by training a model over ethereum blockchain</h3>
+        </div>
+         <div className="jumbotron shadow-lg new-jumbotron">
+          <h2>
+            <b>Privacy of data holders</b>
+          </h2>
+          <hr />
+          <h3>Provides differential privacy mechanisms to protect privacy of data holders</h3>
         </div>
         <Footer />
       </div>
