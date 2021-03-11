@@ -3,9 +3,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 class Features extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <div>

@@ -3,18 +3,18 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 class About extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
-      <div> 
-        <Header />   
-        <div className="jumbotron shadow-lg new-jumbotron">      
-          <h2><b>About</b></h2>
+      <div>
+        <Header />
+        <div className="jumbotron shadow-lg new-jumbotron">
+          <h2>
+            <b>About</b>
+          </h2>
           <hr />
           <h3>
-          We provide a decentralized platform to train your machine learning models using data of other data holders
+            We provide a decentralized platform to train your machine learning
+            models using data of other data holders
           </h3>
         </div>
         <Footer />
@@ -24,3 +24,4 @@ class About extends Component {
 }
 
 export default About;
+

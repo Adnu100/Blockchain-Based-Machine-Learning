@@ -6,6 +6,10 @@ import { createContract } from "../utilities/create";
 class NewModel extends Component {
   constructor() {
     super();
+    this.state = {
+      modelName: "",
+      modelDesc: "",
+    };
   }
 
   sendGradient(event) {
@@ -15,6 +19,18 @@ class NewModel extends Component {
     let connection = new Web3("http://localhost:7545/");
     connection.eth.getAccounts().then((accounts) => {
       createContract(connection, accounts[0]);
+    });
+  }
+
+  changeName(event) {
+    this.setState({
+      modelName: event.target.value,
+    });
+  }
+
+  changeDesc(event) {
+    this.setState({
+      modelDesc: event.target.value,
     });
   }
 
@@ -28,7 +44,6 @@ class NewModel extends Component {
               <b>Add New Machine Learning Model</b>
             </h2>
             <hr />
-
             <form onSubmit={this.onSubmit} className="login-form">
               <div className="form-group">
                 <div className="row">
@@ -43,17 +58,16 @@ class NewModel extends Component {
                     <input
                       type="text"
                       className="form-control"
-                      value=""
+                      value={this.state.modelName}
                       name="model"
                       id="model"
                       placeholder="Model Name"
-                      onChange=""
+                      onChange={this.changeName.bind(this)}
                       required
                     />
                   </div>
                 </div>
               </div>
-
               <div className="form-group">
                 <div className="row">
                   <div className="col-md-5">
@@ -67,11 +81,11 @@ class NewModel extends Component {
                     <textarea
                       className="form-control"
                       id="description"
-                      value=""
+                      value={this.state.modelDesc}
                       name="description"
                       rows="5"
                       placeholder="Add Description"
-                      onChange=""
+                      onChange={this.changeDesc.bind(this)}
                       required
                     ></textarea>
                   </div>

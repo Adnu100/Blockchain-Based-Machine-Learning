@@ -3,9 +3,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 class Contact extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <div>
@@ -24,4 +21,3 @@ class Contact extends Component {
 }
 
 export default Contact;
-
