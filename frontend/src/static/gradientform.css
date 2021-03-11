@@ -1,7 +1,0 @@
-.myform {
-  transition: all 1s ease-in-out;
-}
-
-.myform:hover {
-  background-color: rgb(238, 221, 221);
-}
