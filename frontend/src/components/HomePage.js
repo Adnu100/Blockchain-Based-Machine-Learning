@@ -7,7 +7,7 @@ class HomePage extends Component {
     super();
   }
   sendGradient(event) {
-    console.log('here');
+    console.log("here");
 
     event.preventDefault();
     alert("Uploaded");
@@ -15,10 +15,10 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div> 
-        <Header/>
-        <Features/>
-        <Footer/>
+      <div>
+        <Header />
+        <Features />
+        <Footer />
       </div>
     );
   }

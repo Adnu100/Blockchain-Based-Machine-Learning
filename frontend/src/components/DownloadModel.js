@@ -9,7 +9,7 @@ class DownloadModel extends Component {
   }
 
   sendGradient(event) {
-    console.log('here');
+    console.log("here");
 
     event.preventDefault();
     alert("Uploaded");
@@ -17,22 +17,28 @@ class DownloadModel extends Component {
 
   render() {
     return (
-      <div> 
+      <div>
         <center>
-          <Header/>
+          <Header />
           <div className="jumbotron shadow-lg new-jumbotron">
-        
-          <h2><b>Download Machine Learning Model</b></h2>
-          <hr />
-
-          <form onSubmit = {this.onSubmit}  className="login-form">
-            <center> <button type="button"  onClick={this.sendGradient.bind(this)} className="btn btn-primary">Download Model</button></center>
-                      
-          </form>
-        
-        </div>
-        <Footer/>
-      </center>
+            <h2>
+              <b>Download Machine Learning Model</b>
+            </h2>
+            <hr />
+            <form onSubmit={this.onSubmit} className="login-form">
+              <center>
+                <button
+                  type="button"
+                  onClick={this.sendGradient.bind(this)}
+                  className="btn btn-primary"
+                >
+                  Download Model
+                </button>
+              </center>
+            </form>
+          </div>
+          <Footer />
+        </center>
       </div>
     );
   }

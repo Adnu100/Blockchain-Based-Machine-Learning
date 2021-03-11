@@ -44,9 +44,6 @@ export default App;
 <<<<<<< HEAD
 =======
 export default App;
-
-
-/*
   <FileInput></FileInput> 
   <Header></Header>
       <div
@@ -59,4 +56,3 @@ export default App;
 
 >>>>>>> dad44a7c0a620fb796daf3e64787fbb909e21537
 */
-
