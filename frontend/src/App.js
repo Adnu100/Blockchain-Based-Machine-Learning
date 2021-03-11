@@ -20,3 +20,17 @@ function App() {
 }
 
 export default App;
+
+
+/*
+  <FileInput></FileInput> 
+  <Header></Header>
+      <div
+        className="container rounded border border-primary shadow-lg myform"
+        style={{ padding: "20px" }}
+      >
+        <GradientForm></GradientForm>
+      </div>
+      <Footer></Footer>
+
+*/
