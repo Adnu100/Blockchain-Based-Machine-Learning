@@ -1,8 +1,5 @@
 import { React, Component } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Features from "./Features";
-class HomePage extends Component {
+class Features extends Component {
   constructor() {
     super();
   }
@@ -16,12 +13,15 @@ class HomePage extends Component {
   render() {
     return (
       <div> 
-        <Header/>
-        <Features/>
-        <Footer/>
+        <h2>
+        Train a machine learning without exchaging data
+        </h2>
+        <h2>
+        And lot more features
+        </h2>
       </div>
     );
   }
 }
 
-export default HomePage;
+export default Features;

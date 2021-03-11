@@ -19,7 +19,7 @@ class DownloadModel extends Component {
     return (
       <div> 
         <center>
-          <Header></Header>
+          <Header/>
           <div className="jumbotron shadow-lg new-jumbotron">
         
           <h2><b>Download Machine Learning Model</b></h2>
@@ -31,7 +31,7 @@ class DownloadModel extends Component {
           </form>
         
         </div>
-        <Footer></Footer>
+        <Footer/>
       </center>
       </div>
     );
