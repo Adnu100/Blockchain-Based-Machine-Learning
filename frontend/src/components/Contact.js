@@ -10,12 +10,12 @@ class Contact extends Component {
     return (
       <div>
         <Header />
-        <div className="jumbotron shadow-lg new-jumbotron">      
-          <h2><b>Contact</b></h2>
+        <div className="jumbotron shadow-lg new-jumbotron">
+          <h2>
+            <b>Contact</b>
+          </h2>
           <hr />
-          <h3>
-          Contact us at learningchain@gmail.com
-          </h3>
+          <h3>Contact us at learningchain@gmail.com</h3>
         </div>
         <Footer />
       </div>
@@ -24,3 +24,4 @@ class Contact extends Component {
 }
 
 export default Contact;
+

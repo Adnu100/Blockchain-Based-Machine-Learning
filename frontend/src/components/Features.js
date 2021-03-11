@@ -11,14 +11,12 @@ class Features extends Component {
       <div>
         <Header />
         <div className="jumbotron shadow-lg new-jumbotron">
-          <h2><b>Features</b></h2>
+          <h2>
+            <b>Features</b>
+          </h2>
           <hr />
-        <h3>
-        Train a machine learning without exchaging data
-        </h3>
-        <h3>
-        And lot more features
-        </h3>
+          <h3>Train a machine learning without exchaging data</h3>
+          <h3>And lot more features</h3>
         </div>
         <Footer />
       </div>

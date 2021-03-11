@@ -1,8 +1,9 @@
 const abi = require("./abi.json");
 const bytecode = require("./bytecode.json");
 
-function createContract(connection, address) {
+export function createContract(connection, address) {
   let contract = new connection.eth.Contract(abi);
+  console.log("creating new model");
   contract
     .deploy({
       data: "0x" + bytecode.object,
@@ -20,5 +21,3 @@ function createContract(connection, address) {
       alert("some error occured, please try again");
     });
 }
-
-export default createContract;
