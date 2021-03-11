@@ -1,20 +1,26 @@
 import { React, Component } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+
 class Features extends Component {
   constructor() {
     super();
   }
-
-  sendGradient(event) {
-    console.log("here");
-    event.preventDefault();
-    alert("Uploaded");
-  }
-
   render() {
     return (
       <div>
-        <h2>Train a machine learning without exchaging data</h2>
-        <h2>And lot more features</h2>
+        <Header />
+        <div className="jumbotron shadow-lg new-jumbotron">
+          <h2><b>Features</b></h2>
+          <hr />
+        <h3>
+        Train a machine learning without exchaging data
+        </h3>
+        <h3>
+        And lot more features
+        </h3>
+        </div>
+        <Footer />
       </div>
     );
   }
