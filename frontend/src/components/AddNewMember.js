@@ -97,7 +97,7 @@ class AddNewMember extends Component {
                       className="form-control"
                       value={this.state.memberAddress}
                       id="memberaddress"
-                      placeholder="Member Name"
+                      placeholder="Member Address"
                       onChange={this.changeMemberAddress.bind(this)}
                       required
                     />
