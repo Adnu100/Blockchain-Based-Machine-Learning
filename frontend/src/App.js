@@ -39,4 +39,21 @@ export default App;
       </div>
       <Footer></Footer>
 
+<<<<<<< HEAD
+=======
+export default App;
+
+
+/*
+  <FileInput></FileInput> 
+  <Header></Header>
+      <div
+        className="container rounded border border-primary shadow-lg myform"
+        style={{ padding: "20px" }}
+      >
+        <GradientForm></GradientForm>
+      </div>
+      <Footer></Footer>
+
+>>>>>>> dad44a7c0a620fb796daf3e64787fbb909e21537
 */
