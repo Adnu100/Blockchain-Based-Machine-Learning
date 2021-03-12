@@ -9,4 +9,4 @@ async function interactTest(address) {
   console.log(name);
 }
 
-interactTest("0x5a9cBEC87B4fdf9d52a2B4ACaFAff8efaD047F7A");
+interactTest("0xF802D066da8c58a3598A1cb89F206153077Bc94f");

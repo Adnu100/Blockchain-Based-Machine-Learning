@@ -25,7 +25,7 @@ class StartProcess extends Component {
         slope: parseFloat(result["0"]),
         intercept: parseFloat(result["1"]),
       };
-      const gradient = gradientDescent(
+      let newline = gradientDescent(
         data.map((s) => {
           const [x, y] = s.split(",");
           return { x: x, y: y };
@@ -35,11 +35,9 @@ class StartProcess extends Component {
           learningRate: 0.00001,
         }
       );
-      console.log(gradient);
-      let newline = {
-        slope: line.slope + gradient.slope,
-        intercept: line.intercept + gradient.intercept,
-      };
+      console.log(newline);
+      newline.slope = newline.slope.toString();
+      newline.intercept = newline.intercept.toString();
       connection.eth.getAccounts().then((accounts) => {
         addGradient(
           {

@@ -18,14 +18,14 @@
 		"inputs": [
 			{
 				"name": "m",
-				"type": "int256"
+				"type": "string"
 			},
 			{
 				"name": "b",
-				"type": "int256"
+				"type": "string"
 			}
 		],
-		"name": "addGradient",
+		"name": "updateModel",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -80,11 +80,11 @@
 		"outputs": [
 			{
 				"name": "",
-				"type": "int256"
+				"type": "string"
 			},
 			{
 				"name": "",
-				"type": "int256"
+				"type": "string"
 			}
 		],
 		"payable": false,

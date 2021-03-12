@@ -23,13 +23,8 @@ contract Ownable {
 
 contract Model is Ownable {
     struct ModelState {
-        int slope;
-        int intercept;
-    }
-
-    struct Gradients {
-        int m;
-        int b;
+        string slope;
+        string intercept;
     }
 
     struct DataHolderSet {
@@ -45,8 +40,8 @@ contract Model is Ownable {
         super;
         /*name = _name;*/
         name = "test";
-        current.slope = 0;
-        current.intercept = 0;
+        current.slope = "0";
+        current.intercept = "0";
     }
     
     modifier shouldBeRegistered() {
@@ -59,12 +54,12 @@ contract Model is Ownable {
         registered.existance[_dataHolder] = true;
     }
     
-    function addGradient(int m, int b) public shouldBeRegistered {
-        current.slope += m;
-        current.intercept += b;
+    function updateModel(string m, string b) public shouldBeRegistered {
+        current.slope = m;
+        current.intercept = b;
     }
     
-    function getCurrentModel() public view returns(int, int) {
+    function getCurrentModel() public view returns(string, string) {
         return (current.slope, current.intercept);
     }
 }

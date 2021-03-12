@@ -5,7 +5,7 @@ export function addGradient(web3, gradient) {
   const { slope, intercept, loopNumber } = gradient;
   let contract = new connection.eth.Contract(abi, contractAddress);
   contract.methods
-    .addGradient(slope.toString(), intercept.toString())
+    .updateModel(slope, intercept)
     .send({
       from: senderAddress,
     })
