@@ -11,6 +11,7 @@ class StartProcess extends Component {
     this.state = {
       modelAddress: "",
       filesProvided: [],
+      iterations: 0,
     };
   }
 
@@ -21,20 +22,22 @@ class StartProcess extends Component {
       connection: connection,
       contractAddress: this.state.modelAddress,
     }).then((result) => {
-      const line = {
+      let newline = {
         slope: parseFloat(result["0"]),
         intercept: parseFloat(result["1"]),
       };
-      let newline = gradientDescent(
-        data.map((s) => {
-          const [x, y] = s.split(",");
-          return { x: x, y: y };
-        }),
-        line,
-        {
-          learningRate: 0.00001,
-        }
-      );
+      for (let i = 0; i < this.state.iterations; i++) {
+        newline = gradientDescent(
+          data.map((s) => {
+            const [x, y] = s.split(",");
+            return { x: x, y: y };
+          }),
+          newline,
+          {
+            learningRate: 0.00001,
+          }
+        );
+      }
       console.log(newline);
       newline.slope = newline.slope.toString();
       newline.intercept = newline.intercept.toString();
@@ -79,6 +82,12 @@ class StartProcess extends Component {
   changeFiles(event) {
     this.setState({
       filesProvided: event.target.files,
+    });
+  }
+
+  changeIterations(event) {
+    this.setState({
+      iterations: event.target.value,
     });
   }
 
@@ -131,6 +140,28 @@ class StartProcess extends Component {
                     id="datasetfile"
                     onChange={this.changeFiles.bind(this)}
                     multiple
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="row">
+                <div className="col-md-5">
+                  <label htmlFor="iter">
+                    <h3>
+                      <b>Iterations</b>
+                    </h3>
+                  </label>
+                </div>
+                <div className="col-md-7">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={this.state.iterations}
+                    id="iter"
+                    placeholder="Iterations"
+                    onChange={this.changeIterations.bind(this)}
+                    required
                   />
                 </div>
               </div>
