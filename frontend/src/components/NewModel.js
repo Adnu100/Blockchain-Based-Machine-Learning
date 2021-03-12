@@ -15,7 +15,6 @@ class NewModel extends Component {
   sendGradient(event) {
     event.preventDefault();
     const Web3 = require("web3");
-    console.log("web3 information: ", Web3);
     let connection = new Web3("http://localhost:7545/");
     connection.eth.getAccounts().then((accounts) => {
       createContract(connection, accounts[0]);

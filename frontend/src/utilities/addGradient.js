@@ -1,11 +1,11 @@
-const abi = require("abi.json");
+const abi = require("./abi.json");
 
-function addGradient(web3, gradients) {
+export function addGradient(web3, gradient) {
   const { connection, contractAddress, senderAddress } = web3;
-  const { slope, intercept, loopNumber } = gradients;
+  const { slope, intercept, loopNumber } = gradient;
   let contract = new connection.eth.Contract(abi, contractAddress);
   contract.methods
-    .addGradient(slope, intercept)
+    .addGradient(slope.toString(), intercept.toString())
     .send({
       from: senderAddress,
     })
@@ -17,4 +17,3 @@ function addGradient(web3, gradients) {
       alert("error occured during training");
     });
 }
-export default addGradient;

@@ -3,7 +3,6 @@ const bytecode = require("./bytecode.json");
 
 export function createContract(connection, address) {
   let contract = new connection.eth.Contract(abi);
-  console.log("creating new model");
   contract
     .deploy({
       data: "0x" + bytecode.object,
@@ -15,9 +14,11 @@ export function createContract(connection, address) {
     })
     .then(() => {
       alert("empty model created and added to blockchain successfully");
+      console.log("model created and added");
     })
     .catch((error) => {
       console.log(error);
       alert("some error occured, please try again");
+      console.log("model creation failed");
     });
 }

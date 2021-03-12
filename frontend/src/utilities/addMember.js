@@ -10,9 +10,11 @@ export function addMember(web3, address) {
     })
     .then(() => {
       alert("added member successfully");
+      console.log("member added");
     })
     .catch((error) => {
       console.log(error);
       alert("failed adding member");
+      console.log("member not added");
     });
 }
