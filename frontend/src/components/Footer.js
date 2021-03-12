@@ -4,8 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="jumbotron p-5 mt-5 text-center myanimation">
-        <h4>Made with ❤ in Switzerland</h4>
-
+        <h4>Made with ❤</h4>
       </div>
     );
   }
