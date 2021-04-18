@@ -1,5 +1,9 @@
 pragma solidity ^0.4.21;
 
+/* Ownable contract which provides a base class for all classes
+ * to which modification is to be prohibited by any other 
+ * who is not the owner of the class
+ */
 contract Ownable {
     address owner;
     
@@ -21,6 +25,9 @@ contract Ownable {
     }
 }
 
+/* Model contract provides basic functionalities to interact with 
+ * the model which is stored on the Blockchain and update it
+ */
 contract Model is Ownable {
     struct ModelState {
         string slope;
