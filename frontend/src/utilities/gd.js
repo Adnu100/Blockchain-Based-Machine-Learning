@@ -1,14 +1,49 @@
-export function gradientDescent(data, line, options) {
-  let m = line.slope;
-  let b = line.intercept;
-  const { learningRate } = options;
-  for (let i = 0; i < data.length; i++) {
-    let x = data[i].x;
-    let y = data[i].y;
-    let guess = m * x + b;
-    let error = y - guess;
-    m = m + error * x * learningRate;
-    b = b + error * learningRate;
+import { MinMaxScalar } from "./scalar";
+
+function gradientsForSumSquareDistance(x, y, model) {
+  let features = model.length,
+    rows = x.length;
+  let terms = Array(rows);
+  for (let i = 0; i < rows; i++) {
+    let r = x[i],
+      t = y[i];
+    let s = 0;
+    for (let j = 0; j < features; j++) s += r[j] * model[j];
+    terms[i] = t - s;
   }
-  return { slope: m, intercept: b };
+  let gradients = Array(features);
+  for (let j = 0; j < features; j++) {
+    let s = 0;
+    for (let i = 0; i < rows; i++) s += x[i][j] * terms[i];
+    gradients[j] = -2 * s;
+  }
+  return gradients;
+}
+
+export function gradientDescent(
+  x,
+  y,
+  learningRate = 0.001,
+  maxIter = 5000,
+  thresholdStepSize = 0.00001,
+  initialVector = null
+) {
+  MinMaxScalar.scaledata(x);
+  y = MinMaxScalar(y).getscaled();
+  x = x.map((arr) => [0].concat(arr));
+  if (initialVector === null) model = Array(x[0].length).fill(1);
+  else model = [1].concat(initialVector);
+  let stepSize = 100000;
+  let iterationCount = 0;
+  while (Math.abs(stepSize) > thresholdStepSize && iterationCount < maxIter) {
+    let gradients = gradientsForSumSquareDistance(x, y, model);
+    let maxStepSize = 0;
+    for (let i = 0; i < gradients.length; i++) {
+      let currentStepSize = learningRate * gradients[i];
+      model[i] -= currentStepSize;
+      if (currentStepSize > maxStepSize) maxStepSize = currentStepSize;
+    }
+    iterationCount++;
+  }
+  return model;
 }
