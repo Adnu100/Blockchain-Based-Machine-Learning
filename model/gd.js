@@ -1,4 +1,4 @@
-import { MinMaxScalar } from "./scalar";
+const MinMaxScalar = require("./scalar.js");
 
 function gradientsForSumSquareDistance(x, y, model) {
   let features = model.length,
@@ -20,7 +20,7 @@ function gradientsForSumSquareDistance(x, y, model) {
   return gradients;
 }
 
-export function gradientDescent(
+function gradientDescent(
   x,
   y,
   learningRate = 0.001,
@@ -31,7 +31,7 @@ export function gradientDescent(
 ) {
   if (scale) {
     MinMaxScalar.scaledata(x);
-    y = MinMaxScalar(y).getscaled();
+    y = new MinMaxScalar(y).getscaled();
   }
   x = x.map((arr) => [1].concat(arr));
   if (initialVector === null) model = Array(x[0].length).fill(1);
@@ -50,3 +50,5 @@ export function gradientDescent(
   }
   return model;
 }
+
+module.exports = gradientDescent;

@@ -1,17 +1,4 @@
-function gradientDescent(data, line) {
-  let m = line.slope;
-  let b = line.intercept;
-  let learning_rate = 0.0001;
-  for (let i = 0; i < data.length; i++) {
-    let x = data[i].x;
-    let y = data[i].y;
-    let guess = m * x + b;
-    let error = y - guess;
-    m = m + error * x * learning_rate;
-    b = b + error * learning_rate;
-  }
-  return { slope: m, intercept: b };
-}
+const gradientDescent = require("./gd.js");
 
 var data = [
   { x: 1.647225837031684, y: 1.7225748140494024 },
@@ -117,11 +104,10 @@ var data = [
 ];
 
 function test() {
-  let line = { slope: 0, intercept: 0 };
-  for (let i = 0; i < 10000; i++) {
-    line = gradientDescent(data, line);
-  }
-  console.log(line);
+  let x = data.map((x) => [x.x]);
+  let y = data.map((x) => x.y);
+  let model = gradientDescent(x, y, 0.0001, 5000, 0.00001, null, false);
+  console.log(model);
 }
 
 test();
