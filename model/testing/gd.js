@@ -44,7 +44,7 @@ function gradientDescent(
     for (let i = 0; i < gradients.length; i++) {
       let currentStepSize = learningRate * gradients[i];
       model[i] -= currentStepSize;
-      if (currentStepSize > maxStepSize) maxStepSize = currentStepSize;
+      if (abs(currentStepSize) > maxStepSize) maxStepSize = currentStepSize;
     }
     iterationCount++;
   }
