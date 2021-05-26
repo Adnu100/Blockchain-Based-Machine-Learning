@@ -8,6 +8,8 @@ export function addGradient(web3, gradient) {
     .updateModel(slope, intercept)
     .send({
       from: senderAddress,
+      gas: 1000000,
+      gasPrice: 100000,
     })
     .then(() => {
       console.log(`gradient added [loop: ${loopNumber}]`);

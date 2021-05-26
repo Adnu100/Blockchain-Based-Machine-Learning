@@ -49,7 +49,7 @@ class Header extends Component {
               TRAIN MODEL
             </Link>
             <Link to="/DownloadModel" style={navstyle}>
-              DOWNLOAD MODEL
+              Show Model
             </Link>
             <Link to="/NewModel" style={navstyle}>
               NEW MODEL
@@ -81,4 +81,3 @@ class Header extends Component {
 }
 
 export default Header;
-

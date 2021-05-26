@@ -13,7 +13,7 @@ export class MinMaxScalar {
 
   getscaled() {
     let d = this.max - this.min;
-    return this.arr.map((val) => (val - self.min) / d);
+    return this.arr.map((val) => (val - this.min) / d);
   }
 
   getoriginal(val) {

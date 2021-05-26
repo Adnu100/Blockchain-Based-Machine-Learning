@@ -26,18 +26,25 @@ class StartProcess extends Component {
         slope: parseFloat(result["0"]),
         intercept: parseFloat(result["1"]),
       };
-      for (let i = 0; i < this.state.iterations; i++) {
-        newline = gradientDescent(
-          data.map((s) => {
-            const [x, y] = s.split(",");
-            return { x: x, y: y };
-          }),
-          newline,
-          {
-            learningRate: 0.00001,
-          }
-        );
-      }
+      let x = [],
+        y = [];
+      data.forEach((s) => {
+        const [xi, yi] = s.split(",");
+        x.push([xi]);
+        y.push(yi);
+      });
+      let model = gradientDescent(
+        x,
+        y,
+        0.001,
+        this.state.iterations,
+        0.00001,
+        null,
+        true
+      );
+      const [newintercept, newslope] = model;
+      newline.slope = newslope;
+      newline.intercept = newintercept;
       console.log(newline);
       newline.slope = newline.slope.toString();
       newline.intercept = newline.intercept.toString();

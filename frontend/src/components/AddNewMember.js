@@ -109,7 +109,7 @@ class AddNewMember extends Component {
                   <div className="col-md-5">
                     <label htmlFor="modeladdress">
                       <h3>
-                        <b>Model Name</b>
+                        <b>Model Address</b>
                       </h3>
                     </label>
                   </div>

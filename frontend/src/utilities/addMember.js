@@ -7,6 +7,8 @@ export function addMember(web3, address) {
     .addDataHolder(address)
     .send({
       from: senderAddress,
+      gas: 1000000,
+      gasPrice: 100000,
     })
     .then(() => {
       alert("added member successfully");

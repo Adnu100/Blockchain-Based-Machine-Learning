@@ -29,11 +29,14 @@ export function gradientDescent(
   initialVector = null,
   scale = true
 ) {
+  console.log(x);
+  console.log(y);
   if (scale) {
     MinMaxScalar.scaledata(x);
-    y = MinMaxScalar(y).getscaled();
+    y = new MinMaxScalar(y).getscaled();
   }
   x = x.map((arr) => [1].concat(arr));
+  let model;
   if (initialVector === null) model = Array(x[0].length).fill(1);
   else model = [1].concat(initialVector);
   let stepSize = 100000;

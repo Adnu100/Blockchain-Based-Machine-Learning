@@ -8,6 +8,11 @@ class DownloadModel extends Component {
     super();
     this.state = {
       contractAddress: "",
+      toShow: false,
+      model: {
+        intercept: "",
+        weights: "",
+      },
     };
   }
 
@@ -17,7 +22,7 @@ class DownloadModel extends Component {
     });
   }
 
-  sendGradient(event) {
+  getModel(event) {
     event.preventDefault();
     const Web3 = require("web3");
     let connection = new Web3("http://localhost:7545/");
@@ -26,7 +31,14 @@ class DownloadModel extends Component {
       contractAddress: this.state.contractAddress,
     }).then((result) => {
       console.log(result);
+      this.setState({
+        model: {
+          intercept: result[0],
+          weights: result[1],
+        },
+      });
     });
+    this.setState({ toShow: true });
   }
 
   render() {
@@ -36,7 +48,7 @@ class DownloadModel extends Component {
           <Header />
           <div className="jumbotron shadow-lg new-jumbotron">
             <h2>
-              <b>Download Machine Learning Model</b>
+              <b>Show Machine Learning Model</b>
             </h2>
             <hr />
             <form onSubmit={this.onSubmit} className="login-form">
@@ -64,13 +76,19 @@ class DownloadModel extends Component {
               </div>
               <button
                 type="button"
-                onClick={this.sendGradient.bind(this)}
+                onClick={this.getModel.bind(this)}
                 className="btn btn-primary"
               >
-                <h3>Download Model</h3>
+                <h3>Show Model</h3>
               </button>
             </form>
           </div>
+          {this.state.toShow && (
+            <div className="jumbotron shadow-lg new-jumbotron">
+              <h2>Intercept: {this.state.model.intercept}</h2>
+              <h2>Weights: {this.state.model.weights}</h2>
+            </div>
+          )}
           <Footer />
         </center>
       </div>

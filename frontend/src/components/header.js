@@ -17,7 +17,7 @@ class Header extends Component {
 
     return (
       <div className="jumbotron text-center">
-        <img style={logostyle} src={logo} />
+        <img alt="logo of learning chain" style={logostyle} src={logo} />
         <h1 style={appstyle}>Learning Chain</h1>
       </div>
     );
@@ -28,4 +28,3 @@ export default Header;
 /*
    <p>Create your own machine learning model over blockchain!</p>
 */
-
