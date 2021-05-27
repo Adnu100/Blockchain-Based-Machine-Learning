@@ -20,10 +20,17 @@ class HomePage extends Component {
             between organizations
           </h2>
         </div>
-        <div className="jumbotron shadow-lg new-jumbotron">
+        <div className="jumbotron bg-dark text-white shadow-lg new-jumbotron">
           <h2>
             <b>Features</b>
           </h2>
+        </div>
+        <div className="jumbotron shadow-lg new-jumbotron">
+          <h2>
+            <b>Decentralization</b>
+          </h2>
+          <hr />
+          <h3>The system belongs to more than one entities providing decentralization</h3>
         </div>
         <div className="jumbotron shadow-lg new-jumbotron">
           <h2>
