@@ -70,12 +70,12 @@ class Header extends Component {
         </div>
         <br />
         <div className="jumbotron bg-dark text-white shadow-lg new-jumbotron">
-        <div style={{ paddingTop: "20px" }}>
-          <img alt="learning chain logo" style={logostyle} src={logo} />
-          <h1 style={appstyle}>
-            <b>Learning Chain</b>
-          </h1>
-        </div>
+          <div style={{ paddingTop: "20px" }}>
+            <img alt="learning chain logo" style={logostyle} src={logo} />
+            <h1 style={appstyle}>
+              <b>Learning Chain</b>
+            </h1>
+          </div>
         </div>
       </div>
     );

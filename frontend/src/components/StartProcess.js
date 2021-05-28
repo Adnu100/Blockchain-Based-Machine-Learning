@@ -10,14 +10,24 @@ class StartProcess extends Component {
     super();
     this.state = {
       modelAddress: "",
+      userAddress: "",
       filesProvided: [],
       iterations: 0,
     };
+    const Web3 = require("web3");
+    this.connection = new Web3("http://localhost:7545/");
+    this.connection.eth
+      .getAccounts()
+      .then((accounts) => {
+        this.master = accounts[0];
+      })
+      .catch(() => {
+        this.master = "";
+      });
   }
 
   sendGradientByProcessing(data) {
-    const Web3 = require("web3");
-    let connection = new Web3("http://localhost:7545/");
+    let connection = this.connection;
     getCurrentModel({
       connection: connection,
       contractAddress: this.state.modelAddress,
@@ -34,6 +44,11 @@ class StartProcess extends Component {
         y.push(yi);
       });
       let model = gradientDescent(
+        {
+          connection: connection,
+          contractAddress: this.state.modelAddress,
+          senderAddress: this.state.userAddress,
+        },
         x,
         y,
         0.001,
@@ -48,21 +63,21 @@ class StartProcess extends Component {
       console.log(newline);
       newline.slope = newline.slope.toString();
       newline.intercept = newline.intercept.toString();
-      connection.eth.getAccounts().then((accounts) => {
-        addGradient(
-          {
-            connection: connection,
-            contractAddress: this.state.modelAddress,
-            senderAddress: accounts[0],
-          },
-          newline
-        );
-      });
+      console.log("done training process");
+      addGradient(
+        {
+          connection: connection,
+          contractAddress: this.state.modelAddress,
+          senderAddress: this.state.userAddress,
+        },
+        newline
+      );
     });
   }
 
   sendGradient(event) {
     event.preventDefault();
+    console.log(this.master);
     let reader = new FileReader();
     let data = [];
     let cnt = 0;
@@ -83,6 +98,12 @@ class StartProcess extends Component {
   changeAddress(event) {
     this.setState({
       modelAddress: event.target.value,
+    });
+  }
+
+  changeUserAddress(event) {
+    this.setState({
+      userAddress: event.target.value,
     });
   }
 
@@ -113,7 +134,7 @@ class StartProcess extends Component {
                 <div className="col-md-5">
                   <label htmlFor="model">
                     <h3>
-                      <b>Model Name</b>
+                      <b>Model Address</b>
                     </h3>
                   </label>
                 </div>
@@ -126,6 +147,29 @@ class StartProcess extends Component {
                     id="model"
                     placeholder="Model Address"
                     onChange={this.changeAddress.bind(this)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="row">
+                <div className="col-md-5">
+                  <label htmlFor="model">
+                    <h3>
+                      <b>User Address</b>
+                    </h3>
+                  </label>
+                </div>
+                <div className="col-md-7">
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.userAddress}
+                    name="category"
+                    id="model"
+                    placeholder="User Address"
+                    onChange={this.changeUserAddress.bind(this)}
                     required
                   />
                 </div>

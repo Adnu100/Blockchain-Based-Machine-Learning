@@ -33,8 +33,8 @@ class DownloadModel extends Component {
       console.log(result);
       this.setState({
         model: {
-          intercept: result[0],
-          weights: result[1],
+          intercept: result[1],
+          weights: result[0],
         },
       });
     });

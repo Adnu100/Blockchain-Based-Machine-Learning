@@ -22,7 +22,10 @@ class About extends Component {
             <b>Decentralization</b>
           </h2>
           <hr />
-          <h3>The system belongs to more than one entities providing decentralization</h3>
+          <h3>
+            The system belongs to more than one entities providing
+            decentralization
+          </h3>
         </div>
         <div className="jumbotron shadow-lg new-jumbotron">
           <h2>
@@ -57,4 +60,3 @@ class About extends Component {
 }
 
 export default About;
-

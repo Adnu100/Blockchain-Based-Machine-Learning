@@ -1,4 +1,14 @@
 import { MinMaxScalar } from "./scalar";
+import { addGradient } from "./addGradient";
+
+function globalGradient(gradients, filter, model, N) {
+  let filteredgradients = filter(gradients, model, N);
+  let gg = Array(filteredgradients[0].length).fill(0),
+    l = gradients[0].length;
+  for (let i = 0; i < filteredgradients.length; i++)
+    for (let j = 0; j < l; j++) gg[j] += filteredgradients[i][j];
+  return gg;
+}
 
 function gradientsForSumSquareDistance(x, y, model) {
   let features = model.length,
@@ -21,6 +31,7 @@ function gradientsForSumSquareDistance(x, y, model) {
 }
 
 export function gradientDescent(
+  web3,
   x,
   y,
   learningRate = 0.001,
@@ -41,15 +52,22 @@ export function gradientDescent(
   else model = [1].concat(initialVector);
   let stepSize = 100000;
   let iterationCount = 0;
-  while (Math.abs(stepSize) > thresholdStepSize && iterationCount < maxIter) {
-    let gradients = gradientsForSumSquareDistance(x, y, model);
-    let maxStepSize = 0;
-    for (let i = 0; i < gradients.length; i++) {
-      let currentStepSize = learningRate * gradients[i];
-      model[i] -= currentStepSize;
-      if (currentStepSize > maxStepSize) maxStepSize = currentStepSize;
+  (function process_iterator() {
+    if (Math.abs(stepSize) > thresholdStepSize && iterationCount < maxIter) {
+      let gradients = gradientsForSumSquareDistance(x, y, model);
+      let maxStepSize = 0;
+      for (let i = 0; i < gradients.length; i++) {
+        let currentStepSize = learningRate * gradients[i];
+        model[i] -= currentStepSize;
+        if (currentStepSize > maxStepSize) maxStepSize = currentStepSize;
+      }
+      addGradient(web3, {
+        slope: model[1].toString(),
+        intercept: model[0].toString(),
+      });
+      iterationCount++;
+      setTimeout(process_iterator, 10);
     }
-    iterationCount++;
-  }
+  })();
   return model;
 }
