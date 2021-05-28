@@ -5,37 +5,56 @@ function getdistance(vec1, vec2) {
   let l = vec1.length;
   for (let i = 0; i < l; i++) {
     dotproduct += vec1[i] * vec2[i];
-    len1 += vec1 * vec1;
-    len2 += vec2 * vec2;
+    len1 += vec1[i] * vec1[i];
+    len2 += vec2[i] * vec2[i];
   }
+  console.log(
+    `dotproduct = ${dotproduct}, len1 = ${len1}, len2 = ${len2}, distance = ${
+      dotproduct / Math.sqrt(len1 * len2)
+    }`
+  );
   return dotproduct / Math.sqrt(len1 * len2);
 }
 
-export function withinN(gradients, model, N) {
-  let distances = gradients.map((gradient) => getdistance(model, gradient));
-  let s = 0,
-    l = gradients.length;
-  for (let i of distances) s += i;
-  let average = s / gradients.length;
-  let filteredgradients = [];
-  for (let i = 0; i < l; i++)
-    if (Math.abs(distances[i] - average) <= N)
-      filteredgradients.push(gradients[i]);
-  return filteredgradients;
+function sumOfVectors(vecList) {
+  let len = vecList.length,
+    dim = vecList[0].length;
+  let sumVec = Array(dim).fill(0);
+  for (let i = 0; i < len; i++)
+    for (let j = 0; j < dim; j++) sumVec[j] += vecList[i][j];
+  return sumVec;
 }
 
-export function nearestN(gradients, model, N) {
-  let distances = gradients.map((gradient) => getdistance(model, gradient));
-  let s = 0,
-    l = gradients.length;
-  for (let i of distances) s += i;
-  let average = s / gradients.length;
+function unitVector(vec) {
+  let sumsquare = 0;
+  vec.forEach(function (x) {
+    sumsquare += x * x;
+  });
+  let magnitude = Math.sqrt(sumsquare);
+  return vec.map((x) => x / magnitude);
+}
+
+function withinN(gradients, N) {
+  let sumVec = sumOfVectors(gradients.map(unitVector));
+  return gradients.filter((gradient) => getdistance(gradient, sumVec) >= N);
+}
+
+function nearestN(gradients, N) {
+  let sumVec = sumOfVectors(gradients);
+  let distances = gradients.map((gradient) => getdistance(sumVec, gradient));
+  let l = gradients.length;
   let darr = [];
   for (let i = 0; i < l; i++)
     darr.push({
       gradient: gradients[i],
-      distance: Math.abs(distances[i] - average),
+      distance: distances[i],
     });
-  darr.sort((a, b) => a.distance - b.distance);
+  darr.sort((a, b) => b.distance - a.distance);
   return darr.slice(0, N).map((x) => x.gradient);
+}
+
+export function globalGradient(gradients, filter, N) {
+  return sumOfVectors(
+    (filter === "nearestN" ? nearestN : withinN)(gradients, N)
+  );
 }

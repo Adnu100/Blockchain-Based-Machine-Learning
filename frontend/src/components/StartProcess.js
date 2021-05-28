@@ -9,10 +9,12 @@ class StartProcess extends Component {
   constructor() {
     super();
     this.state = {
+      nodeNumber: undefined,
       modelAddress: "",
       userAddress: "",
       filesProvided: [],
-      iterations: 0,
+      iterations: undefined,
+      totalNodes: undefined,
     };
     const Web3 = require("web3");
     this.connection = new Web3("http://localhost:7545/");
@@ -28,6 +30,7 @@ class StartProcess extends Component {
 
   sendGradientByProcessing(data) {
     let connection = this.connection;
+
     getCurrentModel({
       connection: connection,
       contractAddress: this.state.modelAddress,
@@ -55,7 +58,9 @@ class StartProcess extends Component {
         this.state.iterations,
         0.00001,
         null,
-        true
+        true,
+        this.state.nodeNumber,
+        this.state.totalNodes
       );
       const [newintercept, newslope] = model;
       newline.slope = newslope;
@@ -77,7 +82,20 @@ class StartProcess extends Component {
 
   sendGradient(event) {
     event.preventDefault();
-    console.log(this.master);
+    if (this.state.nodeNumber == 1) {
+      addGradient(
+        {
+          connection: this.connection,
+          contractAddress: this.state.modelAddress,
+          senderAddress: this.state.userAddress,
+        },
+        {
+          slope: "1 0",
+          intercept: "0",
+        }
+      );
+    }
+    alert("reading file and starting training process!");
     let reader = new FileReader();
     let data = [];
     let cnt = 0;
@@ -92,6 +110,12 @@ class StartProcess extends Component {
     };
     Array.from(this.state.filesProvided).forEach((file) => {
       reader.readAsText(file);
+    });
+  }
+
+  changeNodeNumber(event) {
+    this.setState({
+      nodeNumber: event.target.value,
     });
   }
 
@@ -119,6 +143,12 @@ class StartProcess extends Component {
     });
   }
 
+  changeTotalNodes(event) {
+    this.setState({
+      totalNodes: event.target.value,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -129,6 +159,29 @@ class StartProcess extends Component {
           </h2>
           <hr />
           <form onSubmit={this.onSubmit} className="login-form">
+            <div className="form-group">
+              <div className="row">
+                <div className="col-md-5">
+                  <label htmlFor="model">
+                    <h3>
+                      <b>Node Number</b>
+                    </h3>
+                  </label>
+                </div>
+                <div className="col-md-7">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={this.state.nodeNumber}
+                    name="category"
+                    id="model"
+                    placeholder="Given Serial Number"
+                    onChange={this.changeNodeNumber.bind(this)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
             <div className="form-group">
               <div className="row">
                 <div className="col-md-5">
@@ -210,8 +263,30 @@ class StartProcess extends Component {
                     className="form-control"
                     value={this.state.iterations}
                     id="iter"
-                    placeholder="Iterations"
+                    placeholder="Number of Iterations"
                     onChange={this.changeIterations.bind(this)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="row">
+                <div className="col-md-5">
+                  <label htmlFor="iter">
+                    <h3>
+                      <b>Participating Nodes</b>
+                    </h3>
+                  </label>
+                </div>
+                <div className="col-md-7">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={this.state.totalNodes}
+                    id="iter"
+                    placeholder="Total Number of Participating Nodes"
+                    onChange={this.changeTotalNodes.bind(this)}
                     required
                   />
                 </div>
