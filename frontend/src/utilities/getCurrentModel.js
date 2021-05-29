@@ -1,7 +1,6 @@
 const abi = require("./abi.json");
 
 export function getCurrentModel(web3) {
-  const { connection, contractAddress } = web3;
-  let contract = new connection.eth.Contract(abi, contractAddress);
+  let contract = new web3.connection.eth.Contract(abi, web3.contractAddress);
   return contract.methods.getCurrentModel().call();
 }

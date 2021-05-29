@@ -30,11 +30,10 @@ class DownloadModel extends Component {
       connection: connection,
       contractAddress: this.state.contractAddress,
     }).then((result) => {
-      console.log(result);
       this.setState({
         model: {
-          intercept: result[1],
-          weights: result[0],
+          intercept: result[1].split(" ")[0],
+          weights: result[0].split(" ")[1],
         },
       });
     });

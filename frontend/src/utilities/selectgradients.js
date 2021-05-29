@@ -8,11 +8,6 @@ function getdistance(vec1, vec2) {
     len1 += vec1[i] * vec1[i];
     len2 += vec2[i] * vec2[i];
   }
-  console.log(
-    `dotproduct = ${dotproduct}, len1 = ${len1}, len2 = ${len2}, distance = ${
-      dotproduct / Math.sqrt(len1 * len2)
-    }`
-  );
   return dotproduct / Math.sqrt(len1 * len2);
 }
 
@@ -36,7 +31,11 @@ function unitVector(vec) {
 
 function withinN(gradients, N) {
   let sumVec = sumOfVectors(gradients.map(unitVector));
-  return gradients.filter((gradient) => getdistance(gradient, sumVec) >= N);
+  let selection = gradients.filter(
+    (gradient) => getdistance(gradient, sumVec) >= N
+  );
+  console.log(`${selection.length} vectors selected`);
+  return selection;
 }
 
 function nearestN(gradients, N) {

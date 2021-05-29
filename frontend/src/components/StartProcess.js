@@ -2,19 +2,18 @@ import { React, Component } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { gradientDescent } from "../utilities/gd";
-import { getCurrentModel } from "../utilities/getCurrentModel";
 import { addGradient } from "../utilities/addGradient";
 
 class StartProcess extends Component {
   constructor() {
     super();
     this.state = {
-      nodeNumber: undefined,
+      nodeNumber: 1,
       modelAddress: "",
       userAddress: "",
       filesProvided: [],
-      iterations: undefined,
-      totalNodes: undefined,
+      iterations: 0,
+      totalNodes: 1,
     };
     const Web3 = require("web3");
     this.connection = new Web3("http://localhost:7545/");
@@ -31,58 +30,34 @@ class StartProcess extends Component {
   sendGradientByProcessing(data) {
     let connection = this.connection;
 
-    getCurrentModel({
-      connection: connection,
-      contractAddress: this.state.modelAddress,
-    }).then((result) => {
-      let newline = {
-        slope: parseFloat(result["0"]),
-        intercept: parseFloat(result["1"]),
-      };
-      let x = [],
-        y = [];
-      data.forEach((s) => {
-        const [xi, yi] = s.split(",");
-        x.push([xi]);
-        y.push(yi);
-      });
-      let model = gradientDescent(
-        {
-          connection: connection,
-          contractAddress: this.state.modelAddress,
-          senderAddress: this.state.userAddress,
-        },
-        x,
-        y,
-        0.001,
-        this.state.iterations,
-        0.00001,
-        null,
-        true,
-        this.state.nodeNumber,
-        this.state.totalNodes
-      );
-      const [newintercept, newslope] = model;
-      newline.slope = newslope;
-      newline.intercept = newintercept;
-      console.log(newline);
-      newline.slope = newline.slope.toString();
-      newline.intercept = newline.intercept.toString();
-      console.log("done training process");
-      addGradient(
-        {
-          connection: connection,
-          contractAddress: this.state.modelAddress,
-          senderAddress: this.state.userAddress,
-        },
-        newline
-      );
+    let x = [],
+      y = [];
+    data.forEach((s) => {
+      const [xi, yi] = s.split(",");
+      x.push([Number.parseFloat(xi)]);
+      y.push(Number.parseFloat(yi));
     });
+    gradientDescent(
+      {
+        connection: connection,
+        contractAddress: this.state.modelAddress,
+        senderAddress: this.state.userAddress,
+      },
+      x,
+      y,
+      0.001,
+      this.state.iterations,
+      0.00001,
+      null,
+      true,
+      this.state.nodeNumber,
+      this.state.totalNodes
+    );
   }
 
   sendGradient(event) {
     event.preventDefault();
-    if (this.state.nodeNumber == 1) {
+    if (this.state.nodeNumber === 1) {
       addGradient(
         {
           connection: this.connection,
